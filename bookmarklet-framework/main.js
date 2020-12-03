@@ -1,6 +1,6 @@
 (() => {
   const main = async() => {
-    // Inser your script here.
+    // Insert your script here.
     // Example
     toggleLoading(true);
     setLoadingMessage('Fetching');
@@ -10,7 +10,7 @@
       setContent(exampleFetch.body);
       toggleLoading();
     } catch (err) {
-      setContent('something went wrong');
+      setContent(err.message);
       toggleLoading(false);
     }
     finally {
