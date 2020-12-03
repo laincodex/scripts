@@ -1,5 +1,5 @@
 (() => {
-  async function main() {
+  const main = async() => {
     // Inser your script here.
     // Example
     toggleLoading(true);
@@ -104,16 +104,18 @@
       contentEl.style.display = 'flex';
     }
   }
-  setLoadingMessage = (message) => {
+  const setLoadingMessage = (message) => {
     loadingMessageEl.textContent = message;
   }
-  setContent = (html) => {
+  const setContent = (html) => {
     contentEl.innerHTML = html;
   }
   containerEl.exit = () => {
-    document.body.removeChild(containerEl);
-    document.removeEventListener('mouseup', containerEl.handleClickOutside);
-    document.removeEventListener('keyup', containerEl.handleClickOutside);
+    if (document.body.contains(containerEl)) {
+      document.body.removeChild(containerEl);
+      document.removeEventListener('mouseup', containerEl.handleClickOutside);
+      document.removeEventListener('keyup', containerEl.handleClickOutside);
+    }
   }
   const exit = containerEl.exit;
   const wait = async (time) => new Promise((res, rej) => { 
