@@ -9,17 +9,16 @@ if (mode ) {
 }
 toggleLoading(true);
 setLoadingMessage('Changing name...');
-const appRootEl = document.getElementById('application_root');
-const el = document.getElementsByTagName('form');
-const inputs = el[0].getElementsByTagName('input');
-const personaName = inputs.personaName;
-personaName.value = name;
-await wait(200);
-el[0].getElementsBySelector('button[type=submit]')[0].click();
-await wait(200);
-setLoadingMessage('Changing Avatar...');
-appRootEl.getElementsBySelector('a[href=/id/PsychoRabb1t/edit/avatar]')[0].click();
 try {
+  const appRootEl = document.getElementById('application_root');
+  const formEl = document.getElementsByTagName('form')[0];
+  const inputs = formEl.getElementsByTagName('input');
+  const personaName = inputs.personaName;
+  personaName.value = name;
+  formEl.getElementsBySelector('button[type=submit]')[0].click();
+  await wait(200);
+  setLoadingMessage('Changing Avatar...');
+  appRootEl.getElementsBySelector('a[href=/id/PsychoRabb1t/edit/avatar]')[0].click();
   const avatarImg = await waitForSelector('img[src='+avatar+']');
   avatarImg[0].parentElement.click();
   await wait(200);
@@ -27,5 +26,6 @@ try {
   await wait(200);
   document.location.href = '/id/PsychoRabb1t/edit/info';
 } catch (err) {
-  setLoadingMessage('Avatar not found.');
+  toggleLoading(false);
+  setContent(err.message);
 }
